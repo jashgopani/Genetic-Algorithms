@@ -17,8 +17,7 @@ var maxforce = 0.3;
 
 
 // Dimensions of barrier
-var rx = 300;
-var ry = 150;
+var rx,ry;//top-left coordinates
 var rw = 200;
 var rh = 10;
 
@@ -29,6 +28,9 @@ function setup() {
   generation=1;
   target = createVector(width / 2, 50);
 
+  //updating dimensions
+  rx = width/2 - 90;
+  ry = height - 200;
 }
 
 function draw() {
@@ -51,6 +53,7 @@ function draw() {
   strokeWeight(1.5);
   stroke('red');
   rect(rx, ry, rw, rh);
+
   // Renders target
   ellipse(target.x, target.y, 16, 16);
 
