@@ -4,6 +4,7 @@
 // Code for: https://youtu.be/bGz7mv2vD6g
 var generation;
 var population;
+var crashed,completed;
 // Each rocket is alive till 400 frames
 var lifespan = 300;
 // Made to display count on screen
@@ -15,6 +16,13 @@ var target;
 // Max force applied to rocket
 var maxforce = 0.3;
 
+//some more DOM elements
+var generation_sp1,generation_sp2;
+var lifespan_sp1,lifespan_sp2;
+var crashed_sp1,crashed_sp2;
+var completed_sp1,completed_sp2;
+var population_sp;
+
 
 // Dimensions of barrier
 var rx,ry;//top-left coordinates
@@ -24,29 +32,67 @@ var rh = 10;
 function setup() {
   createCanvas(windowWidth*0.95,windowHeight*0.8);
   population = new Population();
-  // lifeP = createP('');
+
   generation=1;
+  crashed=0;
+  completed=0;
   target = createVector(width / 2, 50);
 
   //updating dimensions
-  rx = width/2 - 90;
+  rx = width/2 - rw/2;
   ry = height - 200;
+
+  //creating dom elements
+  lifespan_sp1 = createSpan("Lifespan : ");
+  lifespan_sp2 = createSpan();
+  createDiv();
+  population_sp = createSpan("Population : "+population.popsize);
+  createDiv();
+  generation_sp1 = createSpan("Generation : ");
+  generation_sp2 = createSpan("");
+  createDiv();
+  crashed_sp1 = createSpan(" No. of rockets crashed : ");
+  crashed_sp2 = createSpan("");
+  createDiv();
+  completed_sp1 = createSpan(" No. of rockets reached : ");
+  completed_sp2 = createSpan("");
 }
 
 function draw() {
   background(51);
   population.run();
+
+  //DOM related code starts here
+
   // Displays count to window
-  // lifeP.html(count);
+  lifespan_sp2.html(count);
+
+  //Displays Gen number
+  generation_sp2.html(generation);
+
+  //crashed
+  crashed_sp2.html(crashed);
+
+  //completed
+  completed_sp2.html(completed);
+
+  //DOM related code ends here
+
+
   // console.log(count);
   count++;
   if (count == lifespan) {
   	generation++;
-	console.log(generation);
     population.evaluate();
     population.selection();
     // Population = new Population();
     count = 0;
+
+    console.log("Completed = "+completed+"\nCrashed = "+crashed+"\nRemaning = "+(population.popsize-crashed-completed)+"\nTotal = "+((population.popsize-crashed-completed)+crashed+completed));
+
+    crashed = 0;
+    completed = 0;
+
   }
   // Renders barrier for rockets
   fill(255);
