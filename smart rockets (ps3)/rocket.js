@@ -56,7 +56,7 @@ function Rocket(dna) {
       this.fitness /= 10;
     }
 
-    if(this.crashed && this.crashedAt<=lifespan*0.2)
+    if(this.crashed && this.crashedAt<=lifespan*0.5)
       this.fitness /= 10;
 
     if(this.completed && this.completedAt >=0.4)
