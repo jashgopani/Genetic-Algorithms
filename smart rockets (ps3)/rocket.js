@@ -43,18 +43,21 @@ function Rocket(dna) {
     // Maps range of fitness
     this.fitness = map(d, 0, width, width, 0);
     // If rocket gets to target increase fitness of rocket
+   
     if (this.completed) {
-      this.fitness *= 10;
+      this.fitness *= 100;
     }
 
-    if(d <= 30){
-      this.fitness+=10;
+    if(!this.completed && !this.crashed && d>20 && d<100){
+      this.fitness +=100;
     }
 
     // If rocket does not get to target decrease fitness
     if (this.crashed) {
-      this.fitness /= 100;
+      this.fitness /= 10;
     }
+
+
 
   }
 
@@ -127,13 +130,13 @@ function Rocket(dna) {
 
   	if(!this.crashed){
   		if(d<=25 && !this.completed)
-	  		fill('rgb(0,255,0)');
+	  		fill('rgb(0,255,0)'); //blue
 	  	else if(d<=25 && !this.completed)
-		  	fill(color(0, 0, 255));	
+		  	fill(color(0, 0, 255));	//green
 	  	else if(d>25 && d<=200)
-	  		fill(255, 204, 0)
+	  		fill(255, 204, 0) //yellow
 	  	else
-	  		fill(255,150);
+	  		fill(255,150); //white
 	  }else{
 	  	fill('red');
 	  }
