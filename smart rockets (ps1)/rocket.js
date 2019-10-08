@@ -9,7 +9,9 @@ function Rocket(dna) {
   this.pos = createVector(width / 2, height);
   this.vel = createVector();
   this.acc = createVector();
-  
+
+  this.crashedAt = 0;
+  this.completedAt = 0;
 
   // Checks if rocket had crashed
   this.crashed = false;
@@ -44,13 +46,21 @@ function Rocket(dna) {
     // Maps range of fitness
     this.fitness = map(d, 0, width, width, 0);
     // If rocket gets to target increase fitness of rocket
+   
     if (this.completed) {
-      this.fitness *= 10;
+      this.fitness *= 100;
     }
+
     // If rocket does not get to target decrease fitness
     if (this.crashed) {
       this.fitness /= 10;
     }
+
+    if(this.crashed && this.crashedAt<=lifespan*0.2)
+      this.fitness /= 10;
+
+    if(this.completed && this.completedAt >=0.4)
+      this.fitness *= this.completedAt;
 
   }
 
@@ -61,19 +71,25 @@ function Rocket(dna) {
     // If distance less than 10 pixels, then it has reached target
     if (d < 10) {
       this.completed = true;
+      this.completedAt = this.completedAt>0?this.completedAt:count;
       this.pos = target.copy();
     }
     // Rocket hit the barrier
     if (this.pos.x > rx && this.pos.x < rx + rw && this.pos.y > ry && this.pos.y < ry + rh) {
       this.crashed = true;
+      this.crashedAt = count;
     }
     // Rocket has hit left or right of window
     if (this.pos.x > width || this.pos.x < 0) {
       this.crashed = true;
+      this.crashedAt = count;
+
     }
     // Rocket has hit top or bottom of window
     if (this.pos.y > height || this.pos.y < 0) {
       this.crashed = true;
+      this.crashedAt = count;
+
     }
 
     if(this.crashed && !this.crashUpdated){
@@ -85,7 +101,6 @@ function Rocket(dna) {
       completed+=1;//update the global completed count defined in sketch.js
       this.completeUpdated=true;
     }
-
 
 
     //applies the random vectors defined in dna to consecutive frames of rocket
@@ -123,13 +138,13 @@ function Rocket(dna) {
 
     if(!this.crashed){
       if(d<=25 && !this.completed)
-        fill('rgb(0,255,0)');
+        fill('rgb(0,255,0)'); //blue
       else if(d<=25 && !this.completed)
-        fill(color(0, 0, 255)); 
+        fill(color(0, 0, 255)); //green
       else if(d>25 && d<=200)
-        fill(255, 204, 0)
+        fill(255, 204, 0) //yellow
       else
-        fill(255,150);
+        fill(255,150); //white
     }else{
       fill('red');
     }
