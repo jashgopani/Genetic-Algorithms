@@ -121,8 +121,10 @@ function Rocket(dna) {
     var d = dist(this.pos.x, this.pos.y, target.x, target.y);
 
   	if(!this.crashed){
-  		if(d<=25)
+  		if(d<=25 && !this.completed)
 	  		fill('rgb(0,255,0)');
+	  	else if(d<=25 && !this.completed)
+		  	fill(color(0, 0, 255));	
 	  	else if(d>25 && d<=200)
 	  		fill(255, 204, 0)
 	  	else
@@ -131,6 +133,7 @@ function Rocket(dna) {
 	  	fill('red');
 	  }
 
+	  if(this.completed)fill(color(0, 0, 255));	
   }
 
 }
