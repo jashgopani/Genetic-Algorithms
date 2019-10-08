@@ -10,6 +10,9 @@ function Rocket(dna) {
   this.vel = createVector();
   this.acc = createVector();
 
+  this.crashedAt = 0;
+  this.completedAt = 0;
+
   // Checks if rocket had crashed
   this.crashed = false;
   //if rocket crashed and updated the global value
@@ -48,16 +51,16 @@ function Rocket(dna) {
       this.fitness *= 100;
     }
 
-    if(!this.completed && !this.crashed && d>20 && d<100){
-      this.fitness +=100;
-    }
-
     // If rocket does not get to target decrease fitness
     if (this.crashed) {
       this.fitness /= 10;
     }
 
+    if(this.crashed && this.crashedAt<=lifespan*0.2)
+      this.fitness /= 10;
 
+    if(this.completed && this.completedAt >=0.4)
+      this.fitness *= this.completedAt;
 
   }
 
@@ -68,19 +71,25 @@ function Rocket(dna) {
     // If distance less than 10 pixels, then it has reached target
     if (d < 10) {
       this.completed = true;
+      this.completedAt = this.completedAt>0?this.completedAt:count;
       this.pos = target.copy();
     }
     // Rocket hit the barrier
     if (this.pos.x > rx && this.pos.x < rx + rw && this.pos.y > ry && this.pos.y < ry + rh) {
       this.crashed = true;
+      this.crashedAt = count;
     }
     // Rocket has hit left or right of window
     if (this.pos.x > width || this.pos.x < 0) {
       this.crashed = true;
+      this.crashedAt = count;
+
     }
     // Rocket has hit top or bottom of window
     if (this.pos.y > height || this.pos.y < 0) {
       this.crashed = true;
+      this.crashedAt = count;
+
     }
 
     if(this.crashed && !this.crashUpdated){
@@ -92,7 +101,6 @@ function Rocket(dna) {
     	completed+=1;//update the global completed count defined in sketch.js
     	this.completeUpdated=true;
     }
-
 
 
     //applies the random vectors defined in dna to consecutive frames of rocket

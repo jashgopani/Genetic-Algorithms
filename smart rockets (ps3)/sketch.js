@@ -6,7 +6,7 @@ var generation;
 var population;
 var crashed,completed;
 // Each rocket is alive till 400 frames
-var lifespan = 300;
+var lifespan = 210;
 // Made to display count on screen
 var lifeP;
 // Keeps track of frames
@@ -14,7 +14,7 @@ var count = 0;
 // Where rockets are trying to go
 var target;
 // Max force applied to rocket
-var maxforce = 0.3;
+var maxforce = 0.5;
 
 //some more DOM elements
 var generation_sp1,generation_sp2;
@@ -78,12 +78,12 @@ function draw() {
 
   //DOM related code ends here
 
-  if(generation<=population.popsize){
+  if(generation<=population.popsize/2){
 
     // console.log(count);
     count++;
     if (count == lifespan) {
-      console.log(generation+","+completed+","+crashed+","+(population.popsize-crashed-completed)+"\n");
+      console.log(generation+","+completed+","+crashed+","+(population.popsize-crashed-completed));
 
       generation++;
       population.evaluate();
