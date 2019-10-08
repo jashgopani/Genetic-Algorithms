@@ -46,7 +46,7 @@ function Population() {
       var R = random(1);
 
       if(R < this.rockets[index].fitness){
-        console.log("Parent = "+this.rockets[index].fitness);
+        // console.log("Parent = "+this.rockets[index].fitness);
         return this.rockets[index];
       }
 
