@@ -78,21 +78,24 @@ function draw() {
 
   //DOM related code ends here
 
+  if(generation<=population.popsize){
 
-  // console.log(count);
-  count++;
-  if (count == lifespan) {
-    generation++;
-    population.evaluate();
-    population.selection();
-    // Population = new Population();
-    count = 0;
+    // console.log(count);
+    count++;
+    if (count == lifespan) {
+      console.log(generation+","+completed+","+crashed+","+(population.popsize-crashed-completed)+"\n");
 
-    console.log("Completed = "+completed+"\nCrashed = "+crashed+"\nRemaning = "+(population.popsize-crashed-completed)+"\nTotal = "+((population.popsize-crashed-completed)+crashed+completed));
-
-    crashed = 0;
-    completed = 0;
-
+      generation++;
+      population.evaluate();
+      population.selection();
+      // Population = new Population();
+      count = 0;
+  
+      // console.log("Completed = "+completed+"\nCrashed = "+crashed+"\nRemaning = "+(population.popsize-crashed-completed)+"\nTotal = "+((population.popsize-crashed-completed)+crashed+completed));
+      crashed = 0;
+      completed = 0;
+  
+    }
   }
   // Renders barrier for rockets
   fill(255);
