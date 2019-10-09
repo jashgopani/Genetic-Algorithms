@@ -22,9 +22,7 @@ function Population() {
       // Calculates fitness
       this.rockets[i].calcFitness();
       // If current fitness is greater than max, then make max equal to current
-      if (this.rockets[i].fitness > maxfit) {
-        maxfit = this.rockets[i].fitness;
-      }
+      maxfit+=this.rockets[i].fitness;
     }
 
 

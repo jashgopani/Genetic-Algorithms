@@ -48,7 +48,7 @@ function Rocket(dna) {
     // If rocket gets to target increase fitness of rocket
    
     if (this.completed) {
-      this.fitness *= 100;
+      this.fitness *= 10;
     }
 
     // If rocket does not get to target decrease fitness
@@ -56,7 +56,7 @@ function Rocket(dna) {
       this.fitness /= 10;
     }
 
-    if(this.crashed && this.crashedAt<=lifespan*0.5)
+    if(this.crashed && this.crashedAt<=lifespan*0.2)
       this.fitness /= 10;
 
     if(this.completed && this.completedAt >=0.4)
