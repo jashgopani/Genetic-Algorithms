@@ -78,7 +78,7 @@ function draw() {
 
   //DOM related code ends here
 
-  if(generation<=population.popsize/2){
+  if(generation<=100){
 
     // console.log(count);
     count++;
