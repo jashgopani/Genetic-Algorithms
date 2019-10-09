@@ -78,12 +78,18 @@ function draw() {
 
   //DOM related code ends here
 
-  if(generation<=population.popsize/2){
+  if(generation<=100){
 
     // console.log(count);
     count++;
     if (count == lifespan) {
       console.log(generation+","+completed+","+crashed+","+(population.popsize-crashed-completed));
+
+      //if all the rockets complete without crashing => evolved
+      if(completed==population.popsize){
+        console.log("evolved !!!");
+        return;
+      }
 
       generation++;
       population.evaluate();
@@ -113,5 +119,10 @@ function draw() {
   ellipse(target.x, target.y, 16+30, 16+30);
   stroke(255, 204, 0,60);
   ellipse(target.x, target.y, 16+400, 16+400);
+
+  //render name of pool selection algorithm
+  fill(255);
+  textSize(width*0.0125);
+  text("Accept & Reject",10,10,150,150);
 
 }
