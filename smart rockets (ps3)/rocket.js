@@ -56,11 +56,11 @@ function Rocket(dna) {
       this.fitness /= 10;
     }
 
-    if(this.crashed && this.crashedAt<=lifespan*0.5)
-      this.fitness = 0;
+    if(this.crashed && (this.crashedAt>=lifespan*0.5 || this.pos.y>=height-90))
+      this.fitness /= 100;
 
-   if(this.crashed && this.crashedAt>=lifespan*0.8)
-      this.fitness = 0;
+   if(this.crashed && (this.crashedAt>=lifespan*0.8 || this.pos.y==0))
+      this.fitness /= 100;
 
     var ab = degrees(this.pos.angleBetween(createVector(target.x,target.y)))%180;
     if(this.completed && this.completedAt >=0.4 && ab<30)
